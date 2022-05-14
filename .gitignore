@@ -1,0 +1,6 @@
+.vscode
+org/
+META-INF/
+jsoup-1.14.3.jar
+*.class
+.idea
