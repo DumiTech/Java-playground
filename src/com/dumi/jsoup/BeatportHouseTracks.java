@@ -16,9 +16,9 @@ public class BeatportHouseTracks {
         String url = "https://www.beatport.com/genre/house/5/tracks?per-page=150";
         String userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9";
         Document doc = Jsoup.connect(url).userAgent(userAgent).timeout(5000).get();
-        String doc_title = doc.title();
+        String docTitle = doc.title();
         System.out.println();
-        System.out.println(doc_title);
+        System.out.println(docTitle);
         System.out.println("Parsed url: " + url);
 
         Elements body = doc.select("ul.bucket-items.ec-bucket");
@@ -45,7 +45,7 @@ public class BeatportHouseTracks {
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("src/com/dumi/jsoup/reports/outputBeatportHouseTrack.txt"));
-            writer.write("\n"+ doc_title);
+            writer.write("\n"+ docTitle);
             writer.write("\nParsed url: " + url + "\n");
 
             for (String block: container) {
