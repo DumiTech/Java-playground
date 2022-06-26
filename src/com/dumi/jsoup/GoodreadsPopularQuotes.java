@@ -8,15 +8,25 @@ import org.jsoup.select.Elements;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Random;
+
 
 public class GoodreadsPopularQuotes {
 
     public static void main(String[] args) {
+
+        String path = "src/com/dumi/jsoup/reports/";
+        LocalDate date = LocalDate.now();
+        Random random = new Random();
+        String filename = "goodreadsQuotes_" + date + "_" + Math.abs(random.nextInt()) + ".txt";
+
         String baseUrl = "https://www.goodreads.com/quotes?page=";
         String userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9";
 
-        int maxPages = 100;
+//        int maxPages = 100;
+        int maxPages = 3;
         int count = 1;
 
         ArrayList<String> container = new ArrayList();
@@ -46,7 +56,7 @@ public class GoodreadsPopularQuotes {
         }
 
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("src/com/dumi/jsoup/reports/outputGoodreadsPopularQuotes.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path+filename));
             for (String block: container) {
                 writer.write(block);
             }

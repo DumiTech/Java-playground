@@ -7,9 +7,17 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.util.Random;
 
 public class JsoupIMDbTop250Movies {
     public static void main(String[] args) throws IOException {
+
+        String path = "src/com/dumi/jsoup/reports/";
+        LocalDate date = LocalDate.now();
+        Random random = new Random();
+        String filename = "IMDB_TOP250Movies_" + date + "_" + Math.abs(random.nextInt()) + ".txt";
+
         String userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9";
         Document doc = Jsoup.connect("https://www.imdb.com/chart/top/?ref_=nv_mv_250").userAgent(userAgent).timeout(5000).get();
         Elements body = doc.select("tbody.lister-list");
@@ -19,7 +27,7 @@ public class JsoupIMDbTop250Movies {
         System.out.println();
 
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("src/com/dumi/jsoup/reports/outputIMDbTop250Movies.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path + filename));
             writer.write("\nIMDb Top 250 Movies\n\n");
 
             for (Element e: body.select("tr")) {

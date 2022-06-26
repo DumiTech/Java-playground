@@ -8,10 +8,18 @@ import org.jsoup.select.Elements;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class HackerNews {
     public static void main(String[] args) throws IOException {
+
+        String path = "src/com/dumi/jsoup/reports/";
+        LocalDate date = LocalDate.now();
+        Random random = new Random();
+        String filename = "hackerNews_" + date + "_" + Math.abs(random.nextInt()) + ".txt";
+
         String url = "https://news.ycombinator.com/";
         String userAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36";
         Document doc = Jsoup.connect(url).userAgent(userAgent).timeout(9000).get();
@@ -39,8 +47,9 @@ public class HackerNews {
             index+=1;
         }
 
+
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("src/com/dumi/jsoup/reports/outputHackerNews.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path + filename));
 
             for (int i = 0; i < titles.size(); ) {
                 writer.write("\n\n" + titles.get(i) + "\n" + details.get(i));
